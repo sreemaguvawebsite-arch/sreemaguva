@@ -1,0 +1,279 @@
+/* ─── Reset & base ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── Wrapper ──────────────────────────────────────────── */
+.uc-wrapper {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* ─── Animated background blobs ───────────────────────── */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.25;
+  animation: float 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.blob-1 {
+  width: 400px;
+  height: 400px;
+  background: #aa3bff;
+  top: -100px;
+  left: -100px;
+  animation-delay: 0s;
+}
+.blob-2 {
+  width: 300px;
+  height: 300px;
+  background: #3b82f6;
+  bottom: -80px;
+  right: -80px;
+  animation-delay: 3s;
+}
+.blob-3 {
+  width: 250px;
+  height: 250px;
+  background: #ec4899;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 5s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-30px) scale(1.05); }
+}
+
+/* ─── Card ─────────────────────────────────────────────── */
+.uc-card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: 52px 48px;
+  max-width: 560px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 600px) {
+  .uc-card { padding: 36px 24px; }
+}
+
+/* ─── Brand ─────────────────────────────────────────────── */
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.brand-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #aa3bff 0%, #6c3bff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 20px rgba(170, 59, 255, 0.5);
+}
+
+.brand-name {
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+@media (max-width: 400px) {
+  .brand-name { font-size: 26px; }
+}
+
+/* ─── Gears ─────────────────────────────────────────────── */
+.gear-wrap {
+  position: relative;
+  height: 80px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gear {
+  color: rgba(170, 59, 255, 0.6);
+  position: absolute;
+}
+
+.gear-big {
+  width: 70px;
+  height: 70px;
+  animation: spin-cw 5s linear infinite;
+  left: calc(50% - 50px);
+}
+
+.gear-small {
+  width: 44px;
+  height: 44px;
+  animation: spin-ccw 5s linear infinite;
+  left: calc(50% + 12px);
+  top: 18px;
+  color: rgba(99, 102, 241, 0.7);
+}
+
+@keyframes spin-cw  { to { transform: rotate(360deg);  } }
+@keyframes spin-ccw { to { transform: rotate(-360deg); } }
+
+/* ─── Title & subtitle ───────────────────────────────────── */
+.uc-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.25;
+  margin-bottom: 14px;
+  letter-spacing: -0.3px;
+}
+
+.uc-subtitle {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.62);
+  line-height: 1.65;
+  margin-bottom: 32px;
+}
+
+/* ─── Progress bar ───────────────────────────────────────── */
+.progress-wrap {
+  margin-bottom: 32px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-fill {
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(90deg, #aa3bff, #6366f1);
+  border-radius: 99px;
+  animation: grow 2s ease-out forwards;
+  transform-origin: left;
+}
+
+@keyframes grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.progress-label {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: right;
+  display: block;
+}
+
+/* ─── Notify form ────────────────────────────────────────── */
+.notify-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.notify-input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.25s;
+}
+
+.notify-input::placeholder { color: rgba(255,255,255,0.35); }
+
+.notify-input:focus {
+  border-color: rgba(170, 59, 255, 0.7);
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.notify-btn {
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #aa3bff 0%, #6c3bff 100%);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.25s, transform 0.15s;
+  box-shadow: 0 4px 16px rgba(170, 59, 255, 0.4);
+}
+
+.notify-btn:hover  { opacity: 0.88; transform: translateY(-1px); }
+.notify-btn:active { transform: translateY(0); }
+
+@media (max-width: 480px) {
+  .notify-form { flex-direction: column; }
+  .notify-btn  { width: 100%; }
+}
+
+/* ─── Socials ────────────────────────────────────────────── */
+.socials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  transition: background 0.25s, color 0.25s, transform 0.2s;
+}
+
+.social-link:hover {
+  background: rgba(170, 59, 255, 0.3);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ─── Footer text ────────────────────────────────────────── */
+.footer-text {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.3);
+}
