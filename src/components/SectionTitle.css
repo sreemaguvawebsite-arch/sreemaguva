@@ -1,0 +1,37 @@
+.section-title {
+  margin-bottom: 48px;
+}
+
+.section-title.center {
+  text-align: center;
+}
+
+.section-small {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #c9973a;
+  margin-bottom: 12px;
+}
+
+.section-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 700;
+  color: #5a3848;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  font-size: clamp(15px, 2.5vw, 18px);
+  color: #9c7080;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.section-title.center .section-subtitle {
+  margin-inline: auto;
+}
