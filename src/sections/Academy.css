@@ -1,6 +1,6 @@
 .academy {
-  background: linear-gradient(135deg, #00897B 0%, #4DB6AC 100%);
-  color: #fff;
+  background: linear-gradient(135deg, #FFE5EC 0%, #FFC5D9 50%, #FFB3C6 100%);
+  color: #5a3848;
   position: relative;
   overflow: hidden;
 }
@@ -12,7 +12,7 @@
   right: -10%;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(233, 30, 99, 0.15) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -42,14 +42,14 @@
   font-family: var(--font-serif);
   font-size: clamp(32px, 6vw, 48px);
   font-weight: 800;
-  color: white;
+  color: #E91E63;
   margin-bottom: var(--spacing-sm);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 2px 8px rgba(233, 30, 99, 0.2);
 }
 
 .academy-subtitle {
   font-size: clamp(16px, 3vw, 20px);
-  color: rgba(255, 255, 255, 0.95);
+  color: #5a3848;
   font-weight: 500;
 }
 
@@ -62,9 +62,9 @@
 }
 
 .academy-feature-card {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(233, 30, 99, 0.2);
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
   text-align: center;
@@ -72,21 +72,22 @@
 }
 
 .academy-feature-card:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.9);
   transform: translateY(-8px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 32px rgba(233, 30, 99, 0.2);
+  border-color: rgba(233, 30, 99, 0.4);
 }
 
 .feature-icon-circle {
   width: 80px;
   height: 80px;
-  background: white;
+  background: linear-gradient(135deg, #E91E63, #F06292);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto var(--spacing-md);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(233, 30, 99, 0.3);
 }
 
 .feature-icon-circle span {
@@ -96,14 +97,14 @@
 .academy-feature-card h3 {
   font-size: 18px;
   font-weight: 700;
-  color: white;
+  color: #5a3848;
   margin-bottom: var(--spacing-sm);
   font-family: var(--font-sans);
 }
 
 .academy-feature-card p {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.9);
+  color: #5a3848;
   margin: 0;
   line-height: 1.5;
 }
@@ -117,7 +118,7 @@
   font-family: var(--font-serif);
   font-size: clamp(28px, 5vw, 36px);
   font-weight: 700;
-  color: white;
+  color: #E91E63;
   text-align: center;
   margin-bottom: var(--spacing-2xl);
 }
@@ -191,7 +192,7 @@
 }
 
 .course-enquire-btn {
-  background: var(--secondary);
+  background: linear-gradient(135deg, #E91E63, #F06292);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -204,8 +205,9 @@
 }
 
 .course-enquire-btn:hover {
-  background: var(--secondary-light);
+  background: linear-gradient(135deg, #C2185B, #E91E63);
   transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
 }
 
 /* CTA Banner */

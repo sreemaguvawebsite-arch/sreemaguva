@@ -17,6 +17,7 @@ import CustomerReviews from './sections/CustomerReviews'
 import Booking from './sections/Booking'
 import Location from './sections/Location'
 import ServiceDetail from './pages/ServiceDetail'
+import ServiceCategoryPage from './pages/ServiceCategoryPage'
 import NotFound from './pages/NotFound'
 import AdminLogin from './components/admin/AdminLogin'
 import AdminDashboard from './components/admin/AdminDashboard'
@@ -65,6 +66,7 @@ function App() {
                   <Navbar />
                   <Routes>
                     <Route path="/" element={<HomePage />} />
+                    <Route path="/category/:categoryName" element={<ServiceCategoryPage />} />
                     <Route path="/service/:serviceId" element={<ServiceDetail />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>

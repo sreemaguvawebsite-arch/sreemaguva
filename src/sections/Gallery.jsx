@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import SectionTitle from '../components/SectionTitle'
 import './Gallery.css'
 
 const Gallery = () => {
-  const [filter, setFilter] = useState('All')
   const [lightbox, setLightbox] = useState({ open: false, index: 0 })
+  const [touchStart, setTouchStart] = useState(0)
+  const [touchEnd, setTouchEnd] = useState(0)
 
-  // Static gallery images that will always display
+  // All gallery images
   const galleryImages = [
     { 
       id: 1, 
@@ -82,11 +83,28 @@ const Gallery = () => {
     }
   ]
 
-  const categories = ['All', 'Bridal', 'Hair', 'Makeup', 'Skin Care', 'Nails']
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!lightbox.open) return
+      
+      if (e.key === 'Escape') closeLightbox()
+      if (e.key === 'ArrowLeft') navigate('prev')
+      if (e.key === 'ArrowRight') navigate('next')
+    }
 
-  const filteredImages = filter === 'All' 
-    ? galleryImages 
-    : galleryImages.filter(img => img.category === filter)
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [lightbox.open, lightbox.index])
+
+  // Prevent body scroll when lightbox is open
+  useEffect(() => {
+    if (lightbox.open) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+  }, [lightbox.open])
 
   const openLightbox = (index) => {
     setLightbox({ open: true, index })
@@ -98,62 +116,83 @@ const Gallery = () => {
 
   const navigate = (direction) => {
     const newIndex = direction === 'next'
-      ? (lightbox.index + 1) % filteredImages.length
-      : (lightbox.index - 1 + filteredImages.length) % filteredImages.length
+      ? (lightbox.index + 1) % galleryImages.length
+      : (lightbox.index - 1 + galleryImages.length) % galleryImages.length
     setLightbox({ ...lightbox, index: newIndex })
+  }
+
+  // Touch/swipe handlers for mobile
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    
+    const distance = touchStart - touchEnd
+    const minSwipeDistance = 50
+    
+    if (distance > minSwipeDistance) {
+      navigate('next')
+    } else if (distance < -minSwipeDistance) {
+      navigate('prev')
+    }
+    
+    setTouchStart(0)
+    setTouchEnd(0)
   }
 
   return (
     <section id="gallery" className="gallery section">
       <div className="container">
         <SectionTitle 
-          small="OUR WORK"
-          title="Beauty That Speaks for Itself"
-          subtitle="Explore our portfolio of transformations and satisfied clients"
+          small="PORTFOLIO"
+          title="Our Works"
+          subtitle="Explore our beautiful transformations and satisfied clients 💖"
         />
 
-        {/* Filter */}
-        <div className="gallery-filter">
-          {categories.map(category => (
-            <button
-              key={category}
-              className={`filter-btn ${filter === category ? 'active' : ''}`}
-              onClick={() => setFilter(category)}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-
-        {/* Gallery Grid */}
-        <div className="gallery-grid">
-          {filteredImages.map((image, index) => (
-            <div 
-              className="gallery-item" 
-              key={image.id}
-              onClick={() => openLightbox(index)}
-            >
-              <img 
-                src={image.url} 
-                alt={image.alt}
-                loading="lazy"
-                onError={(e) => {
-                  e.target.style.backgroundColor = '#f0f0f0'
-                  e.target.alt = 'Image not available'
-                }}
-              />
-              <div className="gallery-overlay">
-                <span className="gallery-icon">🔍</span>
-                <span className="gallery-category">{image.category}</span>
+        {/* Horizontal Auto-Scrolling Carousel */}
+        <div className="gallery-carousel-wrapper">
+          <div className="gallery-carousel">
+            {/* Duplicate images for seamless infinite scroll */}
+            {[...galleryImages, ...galleryImages].map((image, index) => (
+              <div 
+                className="gallery-carousel-item" 
+                key={`${image.id}-${index}`}
+                onClick={() => openLightbox(index % galleryImages.length)}
+              >
+                <img 
+                  src={image.url} 
+                  alt={image.alt}
+                  loading="lazy"
+                  onError={(e) => {
+                    e.target.style.backgroundColor = '#f0f0f0'
+                    e.target.alt = 'Image not available'
+                  }}
+                />
+                <div className="gallery-carousel-overlay">
+                  <span className="gallery-icon">🔍</span>
+                  <span className="gallery-category">{image.category}</span>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Lightbox */}
       {lightbox.open && (
-        <div className="lightbox" onClick={closeLightbox}>
+        <div 
+          className="lightbox" 
+          onClick={closeLightbox}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <button 
             className="lightbox-close"
             onClick={closeLightbox}
@@ -180,11 +219,14 @@ const Gallery = () => {
 
           <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
             <img 
-              src={filteredImages[lightbox.index].url} 
-              alt={filteredImages[lightbox.index].alt}
+              src={galleryImages[lightbox.index].url} 
+              alt={galleryImages[lightbox.index].alt}
             />
             <p className="lightbox-caption">
-              {filteredImages[lightbox.index].alt}
+              {galleryImages[lightbox.index].alt}
+            </p>
+            <p className="lightbox-counter">
+              {lightbox.index + 1} / {galleryImages.length}
             </p>
           </div>
         </div>
