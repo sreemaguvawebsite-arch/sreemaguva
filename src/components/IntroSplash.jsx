@@ -7,6 +7,12 @@ const IntroSplash = ({ onComplete }) => {
   const [fadeOut, setFadeOut] = useState(false)
 
   useEffect(() => {
+    // Lock body scroll when splash screen is visible
+    document.body.style.overflow = 'hidden'
+    document.body.style.position = 'fixed'
+    document.body.style.width = '100%'
+    document.body.style.height = '100%'
+
     // Step 1: Show brand name
     const brandTimer = setTimeout(() => {
       setStep(1) // Show stats after 2 seconds
@@ -15,8 +21,12 @@ const IntroSplash = ({ onComplete }) => {
     // Step 2: Start fade out after 7 seconds total
     const fadeTimer = setTimeout(() => {
       setFadeOut(true)
-      // Remove component after animation
+      // Remove component and unlock scroll after animation
       setTimeout(() => {
+        document.body.style.overflow = 'unset'
+        document.body.style.position = 'unset'
+        document.body.style.width = 'auto'
+        document.body.style.height = 'auto'
         onComplete()
       }, 1000)
     }, 7000)
@@ -24,6 +34,11 @@ const IntroSplash = ({ onComplete }) => {
     return () => {
       clearTimeout(brandTimer)
       clearTimeout(fadeTimer)
+      // Cleanup: unlock scroll if component unmounts early
+      document.body.style.overflow = 'unset'
+      document.body.style.position = 'unset'
+      document.body.style.width = 'auto'
+      document.body.style.height = 'auto'
     }
   }, [onComplete])
 
