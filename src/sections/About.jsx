@@ -36,8 +36,8 @@ const About = () => {
           <div className="about-image-wrap">
             <div className="about-image">
               <img 
-                src="/logo.jpg" 
-                alt="Sree Maguva Beauty Salon Logo"
+                src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80" 
+                alt="Sree Maguva Beauty Salon Interior"
               />
               <div className="about-image-accent"></div>
               
